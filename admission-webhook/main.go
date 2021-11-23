@@ -10,14 +10,14 @@ import (
 	"k8s.io/api/admission/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 )
 
 func serve(w http.ResponseWriter, r *http.Request, admit utils.AdmitFunc) {
 	klog.V(2).Info(r.RequestURI)
 	var body []byte
 	if r.Body != nil {
-		if data, err := ioutil.ReadAll(r.Body); err != nil {
+		if data, err := ioutil.ReadAll(r.Body); err == nil {
 			body = data
 		}
 	}
@@ -57,6 +57,7 @@ func servePods(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/pods", servePods)
+
+	http.HandleFunc("/", servePods)
 	http.ListenAndServe(":8080", nil)
 }
