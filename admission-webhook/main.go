@@ -9,19 +9,23 @@ import (
 
 	"k8s.io/api/admission/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
 	"k8s.io/klog/v2"
 )
 
+var (
+	cert = "/opt/certs/tls.crt"
+	key  = "/opt/certs/tls.key"
+)
+
 func serve(w http.ResponseWriter, r *http.Request, admit utils.AdmitFunc) {
-	klog.V(2).Info(r.RequestURI)
+	klog.Info(r.RequestURI)
 	var body []byte
 	if r.Body != nil {
 		if data, err := ioutil.ReadAll(r.Body); err == nil {
 			body = data
 		}
 	}
-	klog.V(2).Info(fmt.Sprintf("handling request: %s", body))
+	klog.Info(fmt.Sprintf("handling request: %s", body))
 
 	reqAdmissionReview := v1.AdmissionReview{}                          // 请求
 	resAdmissionReview := v1.AdmissionReview{TypeMeta: metav1.TypeMeta{ // 响应
@@ -59,5 +63,13 @@ func servePods(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	http.HandleFunc("/", servePods)
-	http.ListenAndServe(":8080", nil)
+
+	//http.ListenAndServe(":8080", nil)
+
+	err := http.ListenAndServeTLS(":8080", cert, key, nil)
+	if err != nil {
+		klog.Fatal(err)
+		return
+	}
+
 }

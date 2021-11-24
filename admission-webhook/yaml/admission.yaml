@@ -1,0 +1,26 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: webhook
+webhooks:
+  - name: webhook.myit.fun
+    namespaceSelector: {}
+    #      matchExpressions:
+    #        - key: runlevel
+    #          operator: NotIn
+    #          values: ["0","1"]
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: [ "*" ]
+        apiVersions: [ "v1" ]
+        resources: [ "pods" ]
+    admissionReviewVersions: [ "v1","v1bate1" ]
+    clientConfig:
+      caBundle: |
+      service:
+        name: webhook
+        namespace: default
+        path: /pods
+    sideEffects: NoneOnDryRun
+    failurePolicy: Fail
+
