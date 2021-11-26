@@ -13,3 +13,12 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Certs
+*.pem
+*.csr
+*.srl
+
+# kubeconfig
+ingress.yaml
+kubeconfig

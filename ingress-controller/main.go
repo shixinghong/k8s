@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/valyala/fasthttp"
-	"ingress-controller/filters"
-	sysinit "ingress-controller/init"
+	"myit.fun/kubernetes/ingress-controller/filters"
+	sysinit "myit.fun/kubernetes/ingress-controller/init"
 	"net/http"
 	"strconv"
 
