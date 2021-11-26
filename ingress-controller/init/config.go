@@ -20,7 +20,7 @@ type Config struct {
 var ServerConfig = &Config{}
 
 func Conf() {
-	//f, err := os.Open("ingress.yaml")
+	//f, err := os.Open("ingress_test.yaml")
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
@@ -30,7 +30,7 @@ func Conf() {
 	//	log.Fatal(err)
 	//}
 	//
-	f, err := ioutil.ReadFile("ingress.yaml")
+	f, err := ioutil.ReadFile("ingress_test.yaml")
 	if err != nil {
 		log.Fatal(err)
 		//return  err
