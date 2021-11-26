@@ -1,10 +1,11 @@
 package filters
 
 import (
-	"github.com/valyala/fasthttp"
-	"k8s.io/klog/v2"
 	"regexp"
 	"strings"
+
+	"github.com/valyala/fasthttp"
+	"k8s.io/klog/v2"
 )
 
 const RewriteAnnotation = "nginx.ingress.kubernetes.io/rewrite-target"
