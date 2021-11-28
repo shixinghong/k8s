@@ -9,7 +9,7 @@ import (
 )
 
 func AdmitPods(ar v1.AdmissionReview) *v1.AdmissionResponse {
-	klog.V(2).Info("admitting pods")
+	klog.Info("admitting pods")
 	podResource := metav1.GroupVersionResource{Group: "", Version: "v1", Resource: "pods"} // pod
 	if ar.Request.Resource != podResource {
 		err := fmt.Errorf("expect resource to be %s", podResource)
